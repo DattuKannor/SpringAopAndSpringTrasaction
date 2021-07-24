@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- cfg target class -->
+	<bean id="approval" class="edubuddy.service.OrderAppover">
+
+	</bean>
+
+
+	<!-- cfg advice class -->
+	<bean id="auditingAdvice" class="edubuddy.aspect.AuditingAdvice" />
+
+
+
+	<!-- Cfg ProxyFactoryBean -->
+	<bean id="pfb"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="approval"></property>
+		<property name="interceptorNames">
+			<list>
+				<value>auditingAdvice</value>
+
+			</list>
+
+		</property>
+	</bean>
+
+
+
+
+</beans>
